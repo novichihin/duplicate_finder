@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     libxft2 \
     libxext6 \
     libxrender1 \
+    xvfb \
     && apt-get clean
 
 COPY requirements.txt .
@@ -16,4 +17,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["python3", "main.py"]
+# Запуск Xvfb и приложения
+CMD rm -f /tmp/.X99-lock && \
+    Xvfb :1 -screen 0 1024x768x16 & \
+    export DISPLAY=:1 && \
+    python3 main.py

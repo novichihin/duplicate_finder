@@ -1,14 +1,9 @@
-version: '3'
+version: "3.8"
+
 services:
-  duplicate-finder:
-    build: .
-    container_name: duplicate-finder-app
-    volumes:
-      - .:/app
-    command: python main.py
-    environment:
-      - DISPLAY=${DISPLAY}
-      - QT_X11_NO_MITSHM=1
-    network_mode: "host"
-    stdin_open: true
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: duplicate_finder
     tty: true
